@@ -13,6 +13,21 @@ async function adminOnly(req, res, next) {
   next();
 }
 
+// ── GET /api/users/me
+// بيانات المستخدم الحالي — بيتعمل أول ما يدخل
+router.get("/me", auth, async (req, res) => {
+  try {
+    const snap = await db.collection("users").doc(req.uid).get();
+    if (snap.exists) {
+      return res.json({ id: req.uid, ...snap.data() });
+    }
+    // أول دخول — ابعت 404 والفرونت هيتعامل معاه
+    res.status(404).json({ error: "مستخدم جديد" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ── GET /api/users
 router.get("/", auth, adminOnly, async (req, res) => {
   try {

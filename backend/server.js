@@ -9,12 +9,13 @@ app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
 app.use(express.json());
 
 // ── Routes
-app.use("/api/orders",   require("./routes/orders"));
-app.use("/api/agents",   require("./routes/agents"));
-app.use("/api/vault",    require("./routes/vault"));
-app.use("/api/closing",  require("./routes/closing"));
-app.use("/api/reports",  require("./routes/reports"));
-app.use("/api/users",    require("./routes/users"));
+app.use("/api/orders",    require("./routes/orders"));
+app.use("/api/agents",    require("./routes/agents"));
+app.use("/api/customers", require("./routes/customers"));
+app.use("/api/vault",     require("./routes/vault"));
+app.use("/api/closing",   require("./routes/closing"));
+app.use("/api/reports",   require("./routes/reports"));
+app.use("/api/users",     require("./routes/users"));
 
 // ── Health check
 app.get("/", (req, res) => res.json({ status: "ok", app: "فوريو دليفري — Backend" }));
